@@ -12,6 +12,24 @@ export class TasksController {
     @Query("page") page?: number,
     @Query("limit") limit?: number,
   ) {
+    if (status && !Object.values(TaskStatus).includes(status)) {
+      return {
+        error: "Invalid status",
+      };
+    }
+
+    if (page && isNaN(page)) {
+      return {
+        error: "Invalid page number",
+      };
+    }
+
+    if (limit && isNaN(limit)) {
+      return {
+        error: "Invalid limit number",
+      };
+    }
+
     return this.tasksService.getFilteredTasks(status, page, limit);
   }
 }
