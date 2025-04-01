@@ -3,13 +3,19 @@ import { LoggingService } from "../logging/logging.service";
 
 @Injectable()
 export class NotificationsService {
-  constructor(private readonly loggingnService: LoggingService) {}
+  constructor(
+    private readonly loggingnService: LoggingService,
+    private readonly senderEmail: string,
+    private readonly smsGateway: string,
+  ) {}
 
   sendEmail(to: string, subject: string, message: string): void {
     if (!to || !subject || !message) {
       throw new BadRequestException("Invalid email data");
     }
-    console.log(`Email sent to ${to}: [${subject}] ${message}`);
+    console.log(
+      `Email sent from ${this.senderEmail} to ${to}: [${subject}] ${message}`,
+    );
 
     this.loggingnService.logNotification(
       "Email",
@@ -22,7 +28,7 @@ export class NotificationsService {
     if (!to || !message) {
       throw new BadRequestException("Invalid SMS data");
     }
-    console.log(`SMS sent to ${to}: ${message}`);
+    console.log(`SMS sent via ${this.smsGateway} to ${to}: ${message}`);
 
     this.loggingnService.logNotification("SMS", to, message);
   }

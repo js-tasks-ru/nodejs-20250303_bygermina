@@ -6,7 +6,7 @@ import { Injectable } from "@nestjs/common";
 export class LoggingService {
   private logFilePath: string;
 
-  constructor(logFilePath: string) {
+  constructor(logFilePath?: string) {
     this.logFilePath = logFilePath || path.join(__dirname, "notifications.log");
   }
 
