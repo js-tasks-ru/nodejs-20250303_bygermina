@@ -41,7 +41,7 @@ export class TasksService {
     if (status) {
       tasks = tasks.filter((task) => task.status === status);
     }
-    if (page && limit) {
+    if (page > 0 && limit > 0) {
       const start = (page - 1) * limit;
       const end = start + limit;
       tasks = tasks.slice(start, end);

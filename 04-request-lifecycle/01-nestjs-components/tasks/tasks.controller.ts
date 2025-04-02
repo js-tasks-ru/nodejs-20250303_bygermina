@@ -7,9 +7,11 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  UseGuards,
 } from "@nestjs/common";
 import { TasksService } from "./tasks.service";
 import { CreateTaskDto, UpdateTaskDto } from "./task.model";
+import { RolesGuard } from "../guards/roles.guard";
 
 @Controller("tasks")
 export class TasksController {
@@ -21,25 +23,27 @@ export class TasksController {
   }
 
   @Get(":id")
-  getTaskById(@Param("id", ParseIntPipe) id: number) {
+  getTaskById(@Param("id", new ParseIntPipe()) id: number) {
     return this.tasksService.getTaskById(id);
   }
 
   @Post()
+  @UseGuards(RolesGuard)
   createTask(@Body() task: CreateTaskDto) {
     return this.tasksService.createTask(task);
   }
 
   @Patch(":id")
   updateTask(
-    @Param("id", ParseIntPipe) id: number,
+    @Param("id", new ParseIntPipe()) id: number,
     @Body() task: UpdateTaskDto,
   ) {
     return this.tasksService.updateTask(id, task);
   }
 
   @Delete(":id")
-  deleteTask(@Param("id", ParseIntPipe) id: number) {
+  @UseGuards(RolesGuard)
+  deleteTask(@Param("id", new ParseIntPipe()) id: number) {
     return this.tasksService.deleteTask(id);
   }
 }
