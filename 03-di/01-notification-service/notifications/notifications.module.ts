@@ -4,7 +4,6 @@ import { LoggingService } from "../logging/logging.service";
 
 @Module({
   providers: [
-    LoggingService,
     {
       provide: "LOG_LEVEL",
       useValue: "debug",

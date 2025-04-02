@@ -4,7 +4,7 @@ import { LoggingService } from "../logging/logging.service";
 @Injectable()
 export class NotificationsService {
   constructor(
-    private readonly loggingnService: LoggingService,
+    private readonly loggingService: LoggingService,
     private readonly senderEmail: string,
     private readonly smsGateway: string,
   ) {}
@@ -17,11 +17,7 @@ export class NotificationsService {
       `Email sent from ${this.senderEmail} to ${to}: [${subject}] ${message}`,
     );
 
-    this.loggingnService.logNotification(
-      "Email",
-      to,
-      `[${subject}] ${message}`,
-    );
+    this.loggingService.logNotification("Email", to, `[${subject}] ${message}`);
   }
 
   sendSMS(to: string, message: string): void {
@@ -30,6 +26,6 @@ export class NotificationsService {
     }
     console.log(`SMS sent via ${this.smsGateway} to ${to}: ${message}`);
 
-    this.loggingnService.logNotification("SMS", to, message);
+    this.loggingService.logNotification("SMS", to, message);
   }
 }

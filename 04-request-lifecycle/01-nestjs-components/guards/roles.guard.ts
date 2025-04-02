@@ -4,7 +4,7 @@ import {
   ExecutionContext,
   ForbiddenException,
 } from "@nestjs/common";
-import * as jwt from "jsonwebtoken";
+
 @Injectable()
 export class RolesGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {

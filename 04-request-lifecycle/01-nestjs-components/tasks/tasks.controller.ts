@@ -35,7 +35,7 @@ export class TasksController {
 
   @Patch(":id")
   updateTask(
-    @Param("id", ParseIntPipe) id: number,
+    @Param("id", new ParseIntPipe()) id: number,
     @Body() task: UpdateTaskDto,
   ) {
     return this.tasksService.updateTask(id, task);
@@ -43,7 +43,7 @@ export class TasksController {
 
   @Delete(":id")
   @UseGuards(RolesGuard)
-  deleteTask(@Param("id", ParseIntPipe) id: number) {
+  deleteTask(@Param("id", new ParseIntPipe()) id: number) {
     return this.tasksService.deleteTask(id);
   }
 }
